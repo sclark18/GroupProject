@@ -63,6 +63,7 @@ def print_exit(direction, leads_to):
 
 
 def print_menu(exits, room_items, inv_items):
+    global current_room
     print("You can:")
     for direction in exits:
         print_exit(direction, exit_leads_to(exits, direction))
@@ -72,6 +73,9 @@ def print_menu(exits, room_items, inv_items):
 
     for i in inv_items:
         print("DROP " + (i["id"]).upper() +" to drop your "+(i["name"])+".")
+
+    if current_room["up"] == 'yes':
+        print("NEXT FLOOR to go to the next floor.")
 
     print("What do you want to do?")
 
@@ -115,6 +119,28 @@ def execute_kill(mob):
     mob = 0
     print(mob)
 
+def execute_nextfloor():
+    names = ['Big_room',"Small_room","Not_a_room","Nice_room","Better_room","Room_of_rooms","The_room","Final_room","Tahano_room"]
+
+    floorup = ["f","a","s","d","yes","g","h","i","j"]
+
+    print("------------------------------------------------------------------------------")
+    print("           You have sucesfully entered to the next floor!")
+    print("------------------------------------------------------------------------------")
+
+    for key in rooms:
+        # do something with value
+        name = random.choice(names)
+        rooms[key]["name"] = name
+        names.remove(name)
+
+    for key in rooms:
+        # do something with value
+        up = random.choice(floorup)
+        rooms[key]["up"] = up
+        floorup.remove(up)
+
+
 
 def execute_command(command):
 
@@ -144,6 +170,12 @@ def execute_command(command):
             execute_kill(command[1])
         else:
             print("Kill what?")
+
+    elif command[0] == "next":
+        if len(command) > 1:
+            execute_nextfloor(command[1])
+        else:
+            print("Which floor?")
 
 
     else:
@@ -181,7 +213,7 @@ def main():
 
     while True:
         end = 0
-        x = 10 #SETTIN THE TIME(in seconds)
+        x = 120 #SETTIN THE TIME(in seconds)
         while (end < x):
             t2 = time.strftime("%H:%M:%S")
             (h, m, s) = t2.split(':')

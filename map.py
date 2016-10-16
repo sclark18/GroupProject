@@ -1,6 +1,8 @@
 import random
 names = ['Big_room',"Small_room","Not_a_room","Nice_room","Better_room","Room_of_rooms","The_room","Final_room","Tahano_room"]
 
+floorup = ["f","a","s","d","yes","g","h","i","j"]
+
 room_1 = {
     "name": "",
 
@@ -8,7 +10,9 @@ room_1 = {
 
     "exits": {"east": "Second" , "south":"Fourth"},
 
-    "items": []
+    "items": [],
+
+    "up":""
 }
 
 room_2 = {
@@ -18,7 +22,9 @@ room_2 = {
 
     "exits": {"west": "First" , "south":"Fifth" , "east":"Third"},
 
-    "items": []
+    "items": [],
+
+    "up":""
 }
 
 room_3 = {
@@ -28,7 +34,9 @@ room_3 = {
 
     "exits": {"west": "Second" , "south":"Sixth"},
 
-    "items": []
+    "items": [],
+
+    "up":""
 }
 
 room_4 = {
@@ -38,7 +46,9 @@ room_4 = {
 
     "exits": {"north": "First" , "east":"Fifth" , "south":"Seventh"},
 
-    "items": []
+    "items": [],
+
+    "up":""
 }
 
 room_5 = {
@@ -48,7 +58,9 @@ room_5 = {
 
     "exits": {"west": "Fourth","south":"Eight" , "east":"Sixth", "north":"Second"},
 
-    "items": []
+    "items": [],
+
+    "up":""
 }
 
 room_6 = {
@@ -58,7 +70,9 @@ room_6 = {
 
     "exits": {"west": "Fifth","south":"Nineth","north":"Third"},
 
-    "items": []
+    "items": [],
+
+    "up":""
 }
 
 room_7 = {
@@ -68,7 +82,9 @@ room_7 = {
 
     "exits": {"north": "Fourth","east":"Eight"},
 
-    "items": []
+    "items": [],
+
+    "up":""
 }
 
 room_8 = {
@@ -78,7 +94,9 @@ room_8 = {
 
     "exits": {"west": "Seventh","north":"Fifth","east":"Nineth"},
 
-    "items": []
+    "items": [],
+
+    "up":""
 }
 
 room_9 = {
@@ -88,7 +106,9 @@ room_9 = {
 
     "exits": {"west": "Eight","north":"Sixth"},
 
-    "items": []
+    "items": [],
+
+    "up":""
 }
 
 
@@ -113,3 +133,9 @@ for key in rooms:
     name = random.choice(names)
     rooms[key]["name"] = name
     names.remove(name)
+
+for key in rooms:
+    # do something with value
+    up = random.choice(floorup)
+    rooms[key]["up"] = up
+    floorup.remove(up)
