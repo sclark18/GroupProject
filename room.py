@@ -95,4 +95,5 @@ class Floor:
 
 floor = Floor("type")
 floor.print_map()
-
+for x in range(0,9):
+	floor.describe_room(x)
