@@ -9,6 +9,8 @@ import time
 
 floornumber = 1
 
+disp = 0
+
 def list_of_items(items):
     listofitems = []
     for i in items:
@@ -77,6 +79,8 @@ def print_menu(exits, room_items, inv_items):
     if current_room["up"] == 'yes':
         print("NEXT FLOOR to go to the next floor.")
 
+    print("Write TIMELEFT to check how much time you have left.")
+
     print("What do you want to do?")
 
 
@@ -119,6 +123,7 @@ def execute_kill(mob):
     mob = 0
     print(mob)
 
+
 def execute_nextfloor():
     global floornumber
     names = ['Big_room',"Small_room","Not_a_room","Nice_room","Better_room","Room_of_rooms","The_room","Final_room","Tahano_room"]
@@ -141,10 +146,14 @@ def execute_nextfloor():
         rooms[key]["up"] = up
         floorup.remove(up)
 
+    for key in rooms:
+        rooms[key]["items"] = []
+
+
 
 
 def execute_command(command):
-
+    global disp
     if 0 == len(command):
         return
 
@@ -178,6 +187,13 @@ def execute_command(command):
         else:
             print("Which floor?")
 
+    elif command[0] == "timeleft":
+        if len(command) > 1:
+            print('You have' , disp , "seconds left.")
+        else:
+            print('You have' , disp , "seconds left.")
+
+
 
     else:
         print("This makes no sense.")
@@ -207,6 +223,7 @@ def move(exits, direction):
 
 
 def main():
+    global disp
     # Main game loop
     t1 = time.strftime("%H:%M:%S")
     (h, m, s) = t1.split(':')
@@ -223,9 +240,7 @@ def main():
             disp = x - end
             print()
             print()
-            if disp > 0:
-                print('You have' , disp , "seconds left.")
-            elif disp <= 0:
+            if disp <= 0:
                 break # if we want the last command to be accepted delete break and write sg else instead
             # Display game status (room description, inventory etc.)
             print_room(current_room)
