@@ -1,6 +1,7 @@
 import random
 class Monster:
 	def __init__(self, name):
+		# placeholder monster
 		self.name = name
 
 class Room:
@@ -18,9 +19,18 @@ class Room:
 		self.monster = monster
 
 class Floor:
-	# 3 x 3 group of rooms
-	# randomly generated with monsters (placeholder atm) & items
-	# one room is assigned as an exit
+	""" 
+	3 x 3 group of rooms
+	randomly generated with monsters (placeholder atm) & items
+	one room is assigned as an exit
+	
+	When changing room:
+	North = -3
+	East = +1
+	South = +3
+	West = -1
+
+	"""
 	rooms = []
 	def __init__(self, level_type):
 		for x in range(0,9):
@@ -28,20 +38,35 @@ class Floor:
 		for i in range(0,random.randrange(1,4)):
 			i = random.randrange(0,9)
 			if self.rooms[i].monster == None:
+				# add a random monster here
 				self.rooms[i].add_monster(Monster("jeff"))
+				# (placeholder monster)
+			i = random.randrange(0,9)
+			if self.rooms[i].item == None:
+				# add a random item here
+				pass
 		self.rooms[random.randrange(0,9)].stairs = True
 
 	def print_map(self):
-		# prints the layout of the map
+		""" 
+		prints the layout of the map
+		'X' indicates a monster
+		'/' indicates stairs 
+
+		"""
 		print("MAP:")
 		output = ""
 		for x in range(0,9):
-			if self.rooms[x].stairs:
-				output += "|/"
-			elif self.rooms[x].monster != None:
-				output += "|X"
+			output +="|"
+			if self.rooms[x].monster != None:
+				output += "X"
 			else:
-				output += "| "
+				output += " "
+
+			if self.rooms[x].stairs:
+				output += "/"
+			else:
+		 		output += " "
 
 			if (x+1) % 3 == 0:
 				print(output + "|")
@@ -66,7 +91,6 @@ class Floor:
 			output += "side of the level" 
 
 		print(output)
-
 
 
 floor = Floor("type")
