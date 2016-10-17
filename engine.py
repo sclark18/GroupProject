@@ -7,7 +7,7 @@ from removeing import *
 import random
 import time
 
-
+floornumber = 1
 
 def list_of_items(items):
     listofitems = []
@@ -120,6 +120,7 @@ def execute_kill(mob):
     print(mob)
 
 def execute_nextfloor():
+    global floornumber
     names = ['Big_room',"Small_room","Not_a_room","Nice_room","Better_room","Room_of_rooms","The_room","Final_room","Tahano_room"]
 
     floorup = ["f","a","s","d","yes","g","h","i","j"]
@@ -173,7 +174,7 @@ def execute_command(command):
 
     elif command[0] == "next":
         if len(command) > 1:
-            execute_nextfloor(command[1])
+            execute_nextfloor()
         else:
             print("Which floor?")
 

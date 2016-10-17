@@ -1,5 +1,5 @@
 import random
-names = ['Big_room',"Small_room","Not_a_room","Nice_room","Better_room","Room_of_rooms","The_room","Final_room","Tahano_room"]
+names = ['Big_room',"Small_room","Not_a_room","Nice_room","Better_room","Room_of_rooms","The_room","Final_room","Tahano_room",]
 
 floorup = ["f","a","s","d","yes","g","h","i","j"]
 
