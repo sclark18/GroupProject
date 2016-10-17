@@ -127,11 +127,12 @@ def execute_kill(mob):
 def execute_nextfloor():
     global floornumber
     names = ['Big_room',"Small_room","Not_a_room","Nice_room","Better_room","Room_of_rooms","The_room","Final_room","Tahano_room"]
-
+    floornumber = floornumber + 1
     floorup = ["f","a","s","d","yes","g","h","i","j"]
 
+
     print("------------------------------------------------------------------------------")
-    print("           You have sucesfully entered to the next floor!")
+    print("           You have sucesfully entered to the floor number",floornumber,"!")
     print("------------------------------------------------------------------------------")
 
     for key in rooms:
@@ -154,6 +155,7 @@ def execute_nextfloor():
 
 def execute_command(command):
     global disp
+    global current_room
     if 0 == len(command):
         return
 
@@ -183,7 +185,8 @@ def execute_command(command):
 
     elif command[0] == "next":
         if len(command) > 1:
-            execute_nextfloor()
+            if current_room["up"]=="yes":
+                execute_nextfloor()
         else:
             print("Which floor?")
 
