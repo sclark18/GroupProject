@@ -1,6 +1,6 @@
+from player_functions import *
 from items import *
 from map import rooms
-from player_functions import *
 
 inventory = player["Inventory"]
 print(inventory)
