@@ -54,7 +54,7 @@ def print_room(room):
     # prints the current room's name and description, along with a map showing the room's location and other information
     print()
     print(room["name"])
-    print_map(room)
+    print_map(room,player["name"])
     print()
     print(room["description"])
     print()

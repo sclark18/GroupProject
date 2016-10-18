@@ -159,10 +159,11 @@ def generate_floor():
     j = random.randrange(0,9)
     rooms[j]["up"] = True
 
-def print_map(current_room):
+def print_map(current_room, name):
     """
     prints out a 3x3 grid of the rooms on the current floor.
     each room has 4 variables - items, monsters, the player and stairs.
+    uses the first letter of the user's name as an icon 
     """
     output = ""
     print("┌─────┬─────┬─────┐")
@@ -173,13 +174,13 @@ def print_map(current_room):
         row = [a, b, c]
         for index, s in enumerate(row):
             if current_room == rooms[(i*3) + index]:
-                s[0] = "P"
+                s[0] = name[0].upper()
             if rooms[(i*3) + index]["up"]:
-                s[1] = "^"
+                s[1] = "▓"
             if rooms[(i*3) + index]["monster"] != None:
-                s[2] = "X"
+                s[2] = "!"
             if rooms[(i*3) + index]["items"] != []:
-                s[3] = "I"
+                s[3] = "¤"
         print("│ "+a[0]+" "+a[1]+" │ "+b[0]+" "+b[1]+" │ "+c[0]+" "+c[1]+" │")
         print("│ "+a[2]+" "+a[3]+" │ "+b[2]+" "+b[3]+" │ "+c[2]+" "+c[3]+" │")
         if i != 2:
