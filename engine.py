@@ -11,26 +11,30 @@ import os
 
 
 floornumber = 1
+# the current floor. used in scores
 
 disp = 0
 
 def cls():
+    # clears the screen
     os.system('cls' if os.name=='nt' else 'clear')
 
 
 def list_of_items(items):
+    # returns a string representation of a list of items
     listofitems = []
     for i in items:
     	listofitems.append(i["name"])
 
     str1 = ", ".join(listofitems)
-    return str1
+    return str1 + "."
 
 
 
 def print_room_items(room):
+    # prints the items within the room
     var = list_of_items(room["items"])
-    if var != "":
+    if var != ".":
         print("There is "+var+" here.")
         print()
 
@@ -39,6 +43,7 @@ def print_room_items(room):
 
 
 def print_inventory_items(items):
+    # prints the items in the player's inventory
     print("You have" , list_of_items(inventory) +".") #passed
     print()
 
@@ -46,21 +51,20 @@ def print_inventory_items(items):
 
 
 def print_room(room):
+    # prints the current room's name and description, along with a map showing the room's location and other information
     print()
     print(room["name"])
     print_map(room)
     print()
-    # Display room description
     print(room["description"])
     print()
     print_room_items(room)
-    #
-    # COMPLETE ME!
-    #
+    
 
 
 
 def exit_leads_to(exits, direction):
+    # returns the room that a chosen exit refers to
     if is_valid_exit(exits,direction):
         return rooms[(exits[direction]-1)]
 
@@ -68,12 +72,14 @@ def exit_leads_to(exits, direction):
 
 
 def print_exit(direction, leads_to):
+    # prints the name of an adjacent room in a given direction
     print("GO " + direction.upper() + " to " + leads_to + ".")
 
 
 
 
 def print_menu(exits, room_items, inv_items):
+    #prints the game menu
     global current_room
     print("You can:")
     for direction in exits:
@@ -96,20 +102,25 @@ def print_menu(exits, room_items, inv_items):
 
 
 def is_valid_exit(exits, chosen_exit):
+    # returns true if there is an exit in a given direction; false otherwise
     return chosen_exit in exits
 
 
 
 
 def execute_go(direction):
+    # moves the player if possible, prints a notification if otherwise
     global current_room
     if is_valid_exit(current_room["exits"] , direction):
         current_room = rooms[(current_room["exits"][direction]-1)]
+    else:
+        print("You cannot go that way...")
 
 
 
 
 def execute_take(item_id):
+    # takes an item from the current room
     for item in current_room["items"]:
         if item["id"]==item_id:
             inventory.append(item)
@@ -121,6 +132,7 @@ def execute_take(item_id):
 
 
 def execute_drop(item_id):
+    # drops an item from inventory
     for item in inventory:
         if item["id"]==item_id:
             inventory.remove(item)
@@ -129,15 +141,15 @@ def execute_drop(item_id):
     print("you cannot drop that")
  
 def execute_kill(mob):
+    # kills a monster
     mob = 0
     print(mob)
 
 
 def execute_nextfloor():
+    # generates a new floor and gives the player some exp
     global floornumber
-    names = ['Big_room',"Small_room","Not_a_room","Nice_room","Better_room","Room_of_rooms","The_room","Final_room","Tahano_room"]
     floornumber = floornumber + 1
-    floorup = ["f","a","s","d","yes","g","h","i","j"]
     player["EXP"] = player["EXP"] + floornumber
 
 
@@ -147,26 +159,11 @@ def execute_nextfloor():
 
     generate_floor()
 
-    """for key in rooms:
-        # do something with value
-        name = random.choice(names)
-        rooms[key]["name"] = name
-        names.remove(name)
-
-    for key in rooms:
-        # do something with value
-        up = random.choice(floorup)
-        rooms[key]["up"] = up
-        floorup.remove(up)
-
-    for key in rooms:
-        rooms[key]["items"] = []
-        """
-
 
 
 
 def execute_command(command):
+    # executes the user's command
     global disp
     global current_room
     cls()
@@ -211,29 +208,13 @@ def execute_command(command):
             print('You have' , disp , "seconds left.")
 
 
-
-
-
-
 def menu(exits, room_items, inv_items):
-    # Display menu
+    # displays the game menu and returns the user's (normalised) input
     print_menu(exits, room_items, inv_items)
-
-    # Read player's input
     user_input = input("> ")
-
-    # Normalise the input
     normalised_user_input = normalise_input(user_input)
 
     return normalised_user_input
-
-
-
-
-def move(exits, direction):
-    return exits[direction]
-
-
 
 
 def main():
@@ -241,14 +222,16 @@ def main():
     player_gen(input("What is your name explorer? "))
     print("Welcome to the game, ",player["name"],".")
     print("Let the game begin. You are in the :")
+    # clears the screen, asks for the user's name and welcomes them
     global disp
-    # Main game loop
     t1 = time.strftime("%H:%M:%S")
     (h, m, s) = t1.split(':')
     resone = int(h) * 3600 + int(m) * 60 + int(s)
+    # initializes timer
     while player["alive"] == True:
+        # game loop
         end = 0
-        x = 0 #SETTIN THE TIME(in seconds)
+        x = 0 # SETTING THE TIME(in seconds)
         t2 = time.strftime("%H:%M:%S")
         (h, m, s) = t2.split(':')
         result = int(h) * 3600 + int(m) * 60 + int(s)

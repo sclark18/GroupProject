@@ -1,7 +1,8 @@
 import random
 names = ['Big_room',"Small_room","Not_a_room","Nice_room","Better_room","Room_of_rooms","The_room","Final_room","Tahano_room",]
 
-floorup = ["f","a","s","d","yes","g","h","i","j"]
+# A list of the 9 rooms on a floor. Each room has a name, description (maybe), exits (adjacent rooms), a boolean determining whether there are stairs,
+# items and possibly a monster.
 
 room_1 = {
     "name": "",
@@ -144,21 +145,10 @@ rooms = [
     room_8,
     room_9
 ]
+# list of all rooms on a floor
 
-
-"""for key in rooms:
-    # do something with value
-    name = random.choice(names)
-    rooms[key]["name"] = name
-    names.remove(name)
-
-for key in rooms:
-    # do something with value
-    up = random.choice(floorup)
-    rooms[key]["up"] = up
-    floorup.remove(up)
-"""
 def generate_floor():
+    # randomly generates a floor of 9 (3x3) rooms
     for r in rooms:
         r["up"] = False
         r["items"] = []
@@ -170,6 +160,10 @@ def generate_floor():
     rooms[j]["up"] = True
 
 def print_map(current_room):
+    """
+    prints out a 3x3 grid of the rooms on the current floor.
+    each room has 4 variables - items, monsters, the player and stairs.
+    """
     output = ""
     print("┌─────┬─────┬─────┐")
     for i in range(0,3):
@@ -177,15 +171,14 @@ def print_map(current_room):
         b = [" "]*4
         c = [" "]*4
         row = [a, b, c]
-        for s in row:
-            ind = row.index(s)
-            if current_room == rooms[(i*3) + ind]:
+        for index, s in enumerate(row):
+            if current_room == rooms[(i*3) + index]:
                 s[0] = "P"
-            if rooms[(i*3) + ind]["up"]:
+            if rooms[(i*3) + index]["up"]:
                 s[1] = "^"
-            if rooms[(i*3) + ind]["monster"] != None:
+            if rooms[(i*3) + index]["monster"] != None:
                 s[2] = "X"
-            if rooms[(i*3) + ind]["items"] != []:
+            if rooms[(i*3) + index]["items"] != []:
                 s[3] = "I"
         print("│ "+a[0]+" "+a[1]+" │ "+b[0]+" "+b[1]+" │ "+c[0]+" "+c[1]+" │")
         print("│ "+a[2]+" "+a[3]+" │ "+b[2]+" "+b[3]+" │ "+c[2]+" "+c[3]+" │")
@@ -194,18 +187,5 @@ def print_map(current_room):
         else:
             print("└─────┴─────┴─────┘")
 
-        """output += "│"
-        if r["up"]:
-            output += "X"
-        else:
-            output += " "
-        if r == current_room:
-            output += "O"
-        else:
-            output += " "
-        if r == room_3 or r == room_6 or r == room_9:
-            print(output + "|")
-            output = ""
-"""
 generate_floor()
 
