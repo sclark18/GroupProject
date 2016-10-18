@@ -46,6 +46,7 @@ def level_up():
 # This could be updated later in development to print the player's updated stats and allow the player more choice in which stats are upgraded
 # The stat upgrades are all prospective and fairly arbitrary and you should all feel free to change them for better game balance when we get there
 
+
 def equipment_update(item["name"]):
         player["Max Hit Points"] += item
         player["Attack Points"] += item
@@ -54,9 +55,10 @@ def equipment_update(item["name"]):
 #this function edits the players stats according to the items that are currently equipped
 
 def equipment_gen(item):
-        item_stats = (player_level/10)*(stat)
-        return item: {name : stats}
-#this function will take an input from the items.py dictionary and assign integer stats to them according to the player's stats
+        item_stats = random.randint(1,(player["level"]))       
+        item.update({"stats" : item_stats})
+        return
+#this function will take an input from the dictionaries.py dictionary and assign integer stats to them according to the player's stats
 
 def inventory_handling():
         return
