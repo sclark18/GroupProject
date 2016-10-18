@@ -1,16 +1,22 @@
 #!/usr/bin/python3
 
-from map import rooms
+from map import *
 from player import *
 from items import *
 from removeing import *
 import random
 import time
 from player_functions import *
+import os
+
 
 floornumber = 1
 
 disp = 0
+
+def cls():
+    os.system('cls' if os.name=='nt' else 'clear')
+
 
 def list_of_items(items):
     listofitems = []
@@ -41,7 +47,8 @@ def print_inventory_items(items):
 
 def print_room(room):
     print()
-    print(room["name"].upper())
+    print(room["name"])
+    print_map(room)
     print()
     # Display room description
     print(room["description"])
@@ -54,7 +61,8 @@ def print_room(room):
 
 
 def exit_leads_to(exits, direction):
-    return rooms[exits[direction]]["name"]
+    if is_valid_exit(exits,direction):
+        return rooms[(exits[direction]-1)]
 
 
 
@@ -69,7 +77,7 @@ def print_menu(exits, room_items, inv_items):
     global current_room
     print("You can:")
     for direction in exits:
-        print_exit(direction, exit_leads_to(exits, direction))
+        print_exit(direction, exit_leads_to(exits, direction)["name"])
 
     for i in room_items:
     	print("TAKE " + (i["id"]).upper() +" to take a "+(i["name"])+".")
@@ -77,7 +85,7 @@ def print_menu(exits, room_items, inv_items):
     for i in inv_items:
         print("DROP " + (i["id"]).upper() +" to drop your "+(i["name"])+".")
 
-    if current_room["up"] == 'yes':
+    if current_room["up"] == True:
         print("NEXT FLOOR to go to the next floor.")
 
     print("Write TIME to check how much time you spent.")
@@ -96,7 +104,7 @@ def is_valid_exit(exits, chosen_exit):
 def execute_go(direction):
     global current_room
     if is_valid_exit(current_room["exits"] , direction):
-        current_room = move(current_room["exits"] , direction)
+        current_room = rooms[(current_room["exits"][direction]-1)]
 
 
 
@@ -137,7 +145,9 @@ def execute_nextfloor():
     print("           You have sucesfully entered to the floor number",floornumber,"!")
     print("------------------------------------------------------------------------------")
 
-    for key in rooms:
+    generate_floor()
+
+    """for key in rooms:
         # do something with value
         name = random.choice(names)
         rooms[key]["name"] = name
@@ -151,6 +161,7 @@ def execute_nextfloor():
 
     for key in rooms:
         rooms[key]["items"] = []
+        """
 
 
 
@@ -158,6 +169,7 @@ def execute_nextfloor():
 def execute_command(command):
     global disp
     global current_room
+    cls()
     if 0 == len(command):
         return
 
@@ -187,7 +199,7 @@ def execute_command(command):
 
     elif command[0] == "next":
         if len(command) > 1:
-            if current_room["up"]=="yes":
+            if current_room["up"]== True:
                 execute_nextfloor()
         else:
             print("Which floor?")
@@ -219,15 +231,15 @@ def menu(exits, room_items, inv_items):
 
 
 def move(exits, direction):
-    return rooms[exits[direction]]
+    return exits[direction]
 
 
 
 
 def main():
-    print()
-    player_gen(input("What is your name explorer?"))
-    print("Welcome",player["name"],"to the game.")
+    cls()
+    player_gen(input("What is your name explorer? "))
+    print("Welcome to the game, ",player["name"],".")
     print("Let the game begin. You are in the :")
     global disp
     # Main game loop
