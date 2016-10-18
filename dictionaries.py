@@ -1,3 +1,5 @@
+#These are all the weapons.
+
 weapons_sword = { 
 	"name": "Sword",
 	"description": "This is a sword made from the finest metal that can be found, handcrafted by the most skilled blacksmith."
@@ -78,76 +80,86 @@ weapons = {
 			"Grenade": weapons_grenade
 }
 
-monsters_goblin = {
+
+
+#These are the robots
+
+robots_goblin = {
 	"name": "Goblin",
 	"description": "1 metre tall, green'skinned, hideous humanoid that blocks your path."
 }
 
-monsters_firedragon = {
+robots_firedragon = {
 	"name": "Fire Dragon",
 	"description": "A creature with long, powerful limbs that end in sharp claws blocks your path. It's a Fire Daragon! Breaths out 10 metre long flames, which would burn you to ashes. His extreme size"
 }
 	
-monsters_clown = {
+robots_clown = {
 	"name": "Killer Clown",
 	"description": "Run for your life!!!"
 }
 	
-monsters_voldemort = {
+robots_voldemort = {
 	"name": "Voldemort",
 	"description": "Some say he his horrible nose job is the source of his powers. Beware, he might try and steal your nose!"
 }
 	
-monsters_werewolf = {
+robots_werewolf = {
 	"name": "Werewolf",
 	"description": "Legend says the werewolf was once an aware wolf."
 }
 	
-monsters_vampire = {
+robots_vampire = {
 	"name": "Vampire",
 	"description": "Lives to take the lives of the innocent to quench his thirst for blood, the solitary vampire."
 }
 	
-monsters_medusa = {
+robots_medusa = {
 	"name": "Medusa",
 	"description": "Kim Kardashian with snake hair, just make sure not to look into her eyes."
 }
 	
-monsters_zombie = {
+robots_zombie = {
 	"name": "Zombie",
 	"description": "They love brains..."
 }
 	
-monsters_yeti = {
+robots_yeti = {
 	"name": "Yeti",
 	"description": "Yeti also known as the Abominable Snowman, only a few live to tell the tale of their encounter with one."
 }
 	
-monsters_godzilla = {
+robots_godzilla = {
 	"name": "Godzilla",
 	"description": "You know who he/she is!!"
 }
 
-monsters = {
-			"Goblin": monsters_goblin,
-			"Fire Dragon": monsters_firedragon,
-			"Killer Clown": monsters_clown,
-			"Voldemort": monsters_voldemort,
-			"Werewolf": monsters_werewolf,
-			"Vampire": monsters_vampire,
-			"Medusa": monsters_medusa,
-			"Zombie": monsters_zombie,
-			"Yeti": monsters_yeti,
-			"Godzilla": monsters_godzilla
+robots = {
+			"Goblin": robots_goblin,
+			"Fire Dragon": robots_firedragon,
+			"Killer Clown": robots_clown,
+			"Voldemort": robots_voldemort,
+			"Werewolf": robots_werewolf,
+			"Vampire": robots_vampire,
+			"Medusa": robots_medusa,
+			"Zombie": robots_zombie,
+			"Yeti": robots_yeti,
+			"Godzilla": robots_godzilla
 }
 
 
+
+#Recongnisable adjectives
 
 adjectives = [advanced, ancient, atomic, awesome, best, big, biological, bladed, dangerous, deadly, destructive, 
 			effective, efficient, excellent, good, great, handy, heavy, handcrafted, huge, invincible, large, laser, 
 			lethal, light, portable, loaded, magical, massive, military, modern,  new, old, ordinary, potent, powerful, 
 			primitive, sacred, sharp, single, small, special, splendid, standard, strong, superior, traditional, ultimate, 
 			unique, wooden, imperial, supreme, allmighty, legendary]
+
+
+
+#Potions for the game
 
 potions_healthboost = {
 	"name": "Health Boost"
@@ -179,6 +191,10 @@ potions = {
 	"Super Health Boost": potions_superhealthboost,
 	"Magic Mushrooms": potions_magicmushrooms
 }
+
+
+
+#Equipment for the player
 
 equipment_platearmour = {
 	"name": "Plate Armour"
@@ -212,6 +228,22 @@ equipment = {
 }
 
 
+#Room options for the floors
+
+room_ = {
+	"name":
+
+}
+
+room_ = {
+	"name":
+
+}
+
+room_ = {
+	"name":
+
+}
 
 
 
