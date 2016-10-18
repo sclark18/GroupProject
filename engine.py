@@ -6,6 +6,7 @@ from items import *
 from removeing import *
 import random
 import time
+from player_functions import *
 
 floornumber = 1
 
@@ -79,7 +80,7 @@ def print_menu(exits, room_items, inv_items):
     if current_room["up"] == 'yes':
         print("NEXT FLOOR to go to the next floor.")
 
-    print("Write TIMELEFT to check how much time you have left.")
+    print("Write TIME to check how much time you spent.")
 
     print("What do you want to do?")
 
@@ -129,6 +130,7 @@ def execute_nextfloor():
     names = ['Big_room',"Small_room","Not_a_room","Nice_room","Better_room","Room_of_rooms","The_room","Final_room","Tahano_room"]
     floornumber = floornumber + 1
     floorup = ["f","a","s","d","yes","g","h","i","j"]
+    player["EXP"] = player["EXP"] + floornumber
 
 
     print("------------------------------------------------------------------------------")
@@ -190,16 +192,13 @@ def execute_command(command):
         else:
             print("Which floor?")
 
-    elif command[0] == "timeleft":
+    elif command[0] == "time":
         if len(command) > 1:
             print('You have' , disp , "seconds left.")
         else:
             print('You have' , disp , "seconds left.")
 
 
-
-    else:
-        print("This makes no sense.")
 
 
 
@@ -226,36 +225,36 @@ def move(exits, direction):
 
 
 def main():
+    print()
+    player_gen(input("What is your name explorer?"))
+    print("Welcome",player["name"],"to the game.")
+    print("Let the game begin. You are in the :")
     global disp
     # Main game loop
     t1 = time.strftime("%H:%M:%S")
     (h, m, s) = t1.split(':')
     resone = int(h) * 3600 + int(m) * 60 + int(s)
-
-    while True:
+    while player["alive"] == True:
         end = 0
-        x = 120 #SETTIN THE TIME(in seconds)
-        while (end < x):
-            t2 = time.strftime("%H:%M:%S")
-            (h, m, s) = t2.split(':')
-            result = int(h) * 3600 + int(m) * 60 + int(s)
-            end = result - resone
-            disp = x - end
-            print()
-            print()
-            if disp <= 0:
-                break # if we want the last command to be accepted delete break and write sg else instead
-            # Display game status (room description, inventory etc.)
-            print_room(current_room)
-            print_inventory_items(inventory)
+        x = 0 #SETTIN THE TIME(in seconds)
+        t2 = time.strftime("%H:%M:%S")
+        (h, m, s) = t2.split(':')
+        result = int(h) * 3600 + int(m) * 60 + int(s)
+        end = result - resone
+        disp = end - x 
 
-            # Show the menu with possible actions and ask the player
-            command = menu(current_room["exits"], current_room["items"], inventory)
+        # if we want the last command to be accepted delete break and write sg else instead
+        # Display game status (room description, inventory etc.)    
+        print_room(current_room)
+        print_inventory_items(inventory)
 
-            # Execute the player's command
-            execute_command(command)
-        print("Sorry your time is over.")
-        break
+        # Show the menu with possible actions and ask the player
+        command = menu(current_room["exits"], current_room["items"], inventory)
+
+        # Execute the player's command
+        execute_command(command)
+        
+    
 
 
 

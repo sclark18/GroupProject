@@ -1,8 +1,9 @@
 import math
 import random
+from items import *
 # Work in Progress!
 
-player = {"name" : "", "Hit Points" : 0, "Max Hit Points" : 0, "alive" : True, "EXP" : 0, "EXP to next level" : 0, "level" : 1, "Attack Points" : 0, "Defense Points" : 0, "Inventory" : [""], "Equipped" : [""]}
+player = {"name" : "", "Hit Points" : 0, "Max Hit Points" : 0, "alive" : True, "EXP" : 0, "EXP to next level" : 0, "level" : 1, "Attack Points" : 0, "Defense Points" : 0, "Inventory" : [item_id], "Equipped" : [""]}
 # Values for the player, should be self explanatory.
 # When displaying the amount of EXP to the next level to the player, it should be player["EXP to next level"] - player["EXP"]
 
@@ -45,8 +46,7 @@ def level_up():
 # This function is called by player_update when the player is due to level up
 # This could be updated later in development to print the player's updated stats and allow the player more choice in which stats are upgraded
 # The stat upgrades are all prospective and fairly arbitrary and you should all feel free to change them for better game balance when we get there
-
-
+"""
 def equipment_update(item["name"]):
         player["Max Hit Points"] += item
         player["Attack Points"] += item
@@ -55,16 +55,15 @@ def equipment_update(item["name"]):
 #this function edits the players stats according to the items that are currently equipped
 
 def equipment_gen(item):
-        item_stats = random.randint(1,(player["level"]))       
-        item.update({"stats" : item_stats})
-        return
-#this function will take an input from the dictionaries.py dictionary and assign integer stats to them according to the player's stats
+        item_stats = (player_level/10)*(stat)
+        return item: {name : stats}
+#this function will take an input from the items.py dictionary and assign integer stats to them according to the player's stats
 
 def inventory_handling():
         return
 #this function will handle what is in the inventory and what is equipped
         
-
+"""
 # This function is called whenever the inventory is changed and necessary changes will be saved
 
 """ I used these tests to check these functions worked and it looked alright to me so it should be in working order.
