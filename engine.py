@@ -7,6 +7,7 @@ from removeing import *
 import random
 import time
 from player_functions import *
+from fightingengine import *
 import os
 
 
@@ -252,6 +253,13 @@ def main():
 
             # if we want the last command to be accepted delete break and write sg else instead
             # Display game status (room description, inventory etc.) 
+            if current_room["monster"] == True:
+                x = fighting()
+                if not x:
+                    player["alive"] = False
+                    break
+                else:
+                    current_room["monster"] = None
             print_room(current_room)
             if timeshow == 1:
                  if disp > 0:

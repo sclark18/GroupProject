@@ -163,6 +163,9 @@ def generate_floor(floor_number):
         elif x < 4:
             val = random.randrange(floor_number ,floor_number+5)
             r["items"].append(Equipment(val, armour,adjectives,"DEF"))
+        x = random.randrange(0,20)
+        if x < 3:
+            r["monster"] = True
     for r in rooms:
         i = random.randrange(0,len(names))
         r["name"] = names[i]
@@ -189,9 +192,9 @@ def print_map(current_room, name):
             if rooms[(i*3) + index]["up"]:
                 s[1] = "\033[1;32;40m"+ "▓" + "\033[1;37;40m"
             if rooms[(i*3) + index]["monster"] != None:
-                s[2] = "!"
+                s[2] = "\033[1;33;40m"+"!"+"\033[1;37;40m"
             if rooms[(i*3) + index]["items"] != []:
-                s[3] = "¤"
+                s[3] = "\033[1;34;40m"+"¤"+"\033[1;37;40m"
         print("│ "+a[0]+" "+a[1]+" │ "+b[0]+" "+b[1]+" │ "+c[0]+" "+c[1]+" │")
         print("│ "+a[2]+" "+a[3]+" │ "+b[2]+" "+b[3]+" │ "+c[2]+" "+c[3]+" │")
         if i != 2:
