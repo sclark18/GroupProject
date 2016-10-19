@@ -198,7 +198,6 @@ def execute_command(command):
         else:
             print("Drop what?")
 
-
     elif command[0] == "next":
         if len(command) > 1:
             if current_room["up"]== True:
@@ -232,19 +231,18 @@ def menu(exits, room_items, inv_items):
 def main():
     cls()
     print("\033[1;37;40m")
-    print("Welcome to K.I.R.I.L.L!")
-    print("Robots are invadeing the Tower of London")
-    print("Your duty is to destroy as much as you can in five minutes.")
-    print("You can use the following commands:")
-    print("DROP to drop an item from your inventory.")
-    print("TAKE to pick up an item from a room.")
-    print("NEXT FLOOR to go to the next floor")
-    print("TIME to chech how much time you have left.")
-    print("DRINK to drink an owned potion")
-    print("GO <direction> to move.")
-    print("Good Luck!")
+    print("Welcome to the game.")
+    print("Robots invaded the Tower of London.")
+    print("Your duty is to get rid off as much robot as you can.")
+    print("It also means you have to climb up to the top of the tower")
+    print("You have 5 minutes to kill & climb.")
+    print("The avaible commands are :")
+    print("DROP to drop any owned item.")
+    print("TAKE to pick up items from the room.")
+    print("TIME to check how much time you have left.")
+    print("NEXT FLOOR to go up to the enxt floor")
+    print("Let the game begin!")
     print("")
-
     player_gen(input("What is your name explorer? "))
     print("Welcome to the game, ",player["name"],".")
     print("Let the game begin. You are in the :")

@@ -22,12 +22,12 @@ player = {
 
 def player_gen(name="player"):
 	player["name"] = name
-	player["Max Hit Points"] = 13 + random.randint(1,13)
+	player["Max Hit Points"] = 100
 	player["Hit Points"] = player["Max Hit Points"]
 	player["EXP"] = 0
 	player["EXP to next level"] = 12
-	player["Attack Points"] = 5 + random.randint(1,10)
-	player["Defense Points"] = 0 + random.randint(1,5)
+	player["Attack Points"] = 5
+	player["Defense Points"] = 0
 	return
 # This function is called once at the start of the game and assigns semi-random points to each variable. Feel free to change the points to create a better game balance when we get there, they are basically arbitrary.
 # The player's name is taken for the scoreboard, but should default to player if left blank
@@ -53,7 +53,7 @@ def level_up():
 	player["Attack Points"] += player["level"] + random.randint(0, (math.floor(player["level"]/2)))
 	player["Defense Points"] += player["level"] + random.randint(0, (math.floor(player["level"]/4)))
 	player["level"] = player["level"] + 1
-	player["EXP"] = player["EXP"] = player["EXP to next level"] + player["EXP"]
+	player["EXP"] = player["EXP"] = round(player["EXP to next level"] - (player["EXP"]*random.uniform(0.1,1)),0)
 	player["EXP to next level"] = player["level"] + player["EXP to next level"] + 12
 	return
 # This function is called by player_update when the player is due to level up
@@ -105,10 +105,16 @@ def equip_armour(item):
 
 """ I used these tests to check these functions worked and it looked alright to me so it should be in working order.
 player_gen()
+
 print(player)
+
 player_update(2,0,0)
+
 print(player)
+
 player_update(xp = 12)
+
 print(player)
+
 input("enter to exit!!!")
 """
