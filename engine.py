@@ -254,7 +254,7 @@ def main():
     resone = int(h) * 3600 + int(m) * 60 + int(s)
     # initializes timer
     disp = 1 #comparizon
-    timecheck = 120 # SETTING THE TIME(in seconds)
+    timecheck = 300 # SETTING THE TIME(in seconds)
     while player["alive"] == True:
         while disp > 0 :
             # game loop
