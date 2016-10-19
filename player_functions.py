@@ -3,7 +3,7 @@ import random
 from items import *
 # Work in Progress!
 
-player = {"name" : "", "Hit Points" : 0, "Max Hit Points" : 0, "alive" : True, "EXP" : 0, "EXP to next level" : 0, "level" : 1, "Attack Points" : 0, "Defense Points" : 0, "Inventory" : [item_id], "Equipped" : [""]}
+player = { "name" : "", "Hit Points" : 0, "Max Hit Points" : 0, "alive" : True, "EXP" : 0, "EXP to next level" : 0, "level" : 1, "Attack Points" : 0, "Defense Points" : 0, "Equipped" : {"Weapon" : [], "Equipment" : [] } }
 # Values for the player, should be self explanatory.
 # When displaying the amount of EXP to the next level to the player, it should be player["EXP to next level"] - player["EXP"]
 
@@ -46,24 +46,53 @@ def level_up():
 # This function is called by player_update when the player is due to level up
 # This could be updated later in development to print the player's updated stats and allow the player more choice in which stats are upgraded
 # The stat upgrades are all prospective and fairly arbitrary and you should all feel free to change them for better game balance when we get there
-"""
-def equipment_update(item["name"]):
-        player["Max Hit Points"] += item
-        player["Attack Points"] += item
-        player["Defense Points"] += item
-        return
+
+def equipment_update(item):
+	try:
+	    player["Attack Points"] += item["Attack Points"]
+	except ValueError:
+	    player["Defense Points"] += item["Defense Points"]
+    return
 #this function edits the players stats according to the items that are currently equipped
 
 def equipment_gen(item):
-        item_stats = (player_level/10)*(stat)
-        return item: {name : stats}
-#this function will take an input from the items.py dictionary and assign integer stats to them according to the player's stats
+    item_stats = random.randint(1,(player["level"]))       
+    item.update({"Defense Points" : item_stats})
+    return
+# This function will take an input from the dictionaries.py dictionary and assign integer stats to them according to the player's stats
+# This function is to be used on equipment
 
-def inventory_handling():
-        return
-#this function will handle what is in the inventory and what is equipped
+def weapon_gen(item):
+    item_stats = random.randint(1,(player["level"]))       
+    item.update({"Attack Points" : item_stats})
+    return
+# Same as equipment_gen() but for weapons
+
+def equip_weapon(item):
+	try:
+		player["Equipped"["Weapon"["Attack Points"]]] = 0 - player["Equipped"["Weapon"["Attack Points"]]]
+		equipment_update(player["Equipped"["Weapon"["Attack Points"]]])
+	except ValueError:
+		pass
+	weapon_gen(item)
+	equipment_update(item)
+	player["Equipped"["Weapon"]].update(item)
+    return
+
+def equip_equipment(item):
+	try:
+		player["Equipped"["Equipment"["Defense Points"]]] = 0 - player["Equipped"["Equipment"["Defense Points"]]]
+		equipment_update(player["Equipped"["Equipment"["Defense Points"]]])
+	except ValueError:
+		pass
+	equipment_gen(item)
+	equipment_update(item)
+	player["Equipped"["Equipment"]].update(item)
+    return
+# These functions should edit the player's equipped set and change their stats accordingly
+# These functions are also untested
         
-"""
+
 # This function is called whenever the inventory is changed and necessary changes will be saved
 
 """ I used these tests to check these functions worked and it looked alright to me so it should be in working order.
