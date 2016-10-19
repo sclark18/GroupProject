@@ -33,7 +33,7 @@ def fighting():
         robot = random.choice(robotgen).lower()
 
         winner = None
-        player["Hit Points"] = 100
+        #player["Hit Points"] = 100
         enemyhealth = 100
         print("Oh no! A robot", red +(random.choice(robotgen)).upper() + default, "appeared!")
         print("-----------------------")
@@ -167,7 +167,7 @@ def fighting():
                         enemyhealth = 100
             else:
                 if turn_player:
-                    enemyhealth -= playerchoice
+                    enemyhealth -= (playerchoice + player["Attack Points"] + player["Weapon"].val)
                     xp = (playerchoice*random.uniform(0.1,1))
                     xp = round(xp, 0)
                     player["EXP"] = round(player["EXP"] + xp, 0)
@@ -176,7 +176,7 @@ def fighting():
                         winner = "Player"
                         break
                 else:
-                    player["Hit Points"] -= enemychoice
+                    player["Hit Points"] -= (enemychoice - player["Armour"].val)
                     if player["Hit Points"] < 0:
                         player["Hit Points"] = 0
                         winner = "Enemy"

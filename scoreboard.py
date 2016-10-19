@@ -33,7 +33,7 @@ def save_data(address,data, score, name):
 	f = open(address, 'w')
 	sdata = add_score(data, score, name)
 	for index, i in enumerate(sdata[0]):
-		f.write(sdata[0][index] + "," + str(sdata[1][index]))
+		f.write(str(sdata[0][index]) + "," + str(sdata[1][index]))
 		if index != len(sdata[0]) - 1:
 			f.write("\n")
 	f.close()

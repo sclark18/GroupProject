@@ -1,7 +1,7 @@
 import random
 from dictionaries import *
 from items import *
-names = ['Big_room',"Small_room","Not_a_room","Nice_room","Better_room","Room_of_rooms","The_room","Final_room","Tahano_room",]
+names = ['Office',"Cupboard","Dungeon","Dark Room","Cave","Freezer","Kitchen","Mysterious Room","Messy Room"]
 
 # A list of the 9 rooms on a floor. Each room has a name, description (maybe), exits (adjacent rooms), a boolean determining whether there are stairs,
 # items and possibly a monster.

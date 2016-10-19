@@ -22,12 +22,12 @@ player = {
 
 def player_gen(name="player"):
 	player["name"] = name
-	player["Max Hit Points"] = 13 + random.randint(1,13)
+	player["Max Hit Points"] = 100
 	player["Hit Points"] = player["Max Hit Points"]
 	player["EXP"] = 0
 	player["EXP to next level"] = 12
-	player["Attack Points"] = 5 + random.randint(1,10)
-	player["Defense Points"] = 0 + random.randint(1,5)
+	player["Attack Points"] = 5
+	player["Defense Points"] = 0
 	return
 # This function is called once at the start of the game and assigns semi-random points to each variable. Feel free to change the points to create a better game balance when we get there, they are basically arbitrary.
 # The player's name is taken for the scoreboard, but should default to player if left blank

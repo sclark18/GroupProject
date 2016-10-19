@@ -145,10 +145,15 @@ def execute_take(item_pre, item_name):
             return
     print("you cannot equip that")
  
-def execute_kill(mob):
-    # kills a monster
-    mob = 0
-    print(mob)
+def execute_drink():
+    if player["Inventory"] > 0:
+        if player["Hit Points"] == player["Max Hit Points"]:
+            print("You are already at full health!")
+            return
+        player["Inventory"] -= 1
+        player_update(0,30,0)
+    else:
+        print("You have no more potions left!")
 
 
 def execute_nextfloor():
@@ -210,6 +215,9 @@ def execute_command(command):
         global timeshow
         timeshow = 1
 
+    elif command[0] == "drink":
+        execute_drink()
+
     elif command[0] == "equip":
         if len(command) > 2:
             execute_equip(command[1],command[2])
@@ -240,7 +248,7 @@ def main():
     resone = int(h) * 3600 + int(m) * 60 + int(s)
     # initializes timer
     disp = 1 #comparizon
-    timecheck = 10 # SETTING THE TIME(in seconds)
+    timecheck = 120 # SETTING THE TIME(in seconds)
     while player["alive"] == True:
         while disp > 0 :
             # game loop
