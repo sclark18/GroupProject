@@ -1,51 +1,21 @@
-item_id = {
-    "id": "id",
+import random
+class Equipment:
+	def __init__(self, val, weight, namelist, addlist, type):
+		self.val = val
+		self.weight = weight
+		i = random.randrange(0,len(namelist))
+		j = random.randrange(0,len(addlist))
+		self.name = addlist[j] + " " + namelist[i]
+		self.type = type
+	
+	def get_full_name(self):
+		return self.name + " (+" + str(self.val) + " " + self.type + ")"
+class Potion:
+	def __init__(self, tier, type):
+		self.type = type
+		self.val = tier * 5
+		self.name = type + " Potion"
 
-    "name": "id card",
+	def get_full_name(self):
+		return self.name + " (+" + str(self.val) +")"
 
-    "description":
-    """You new shiny student ID card. Expires 1 June 2017.
-You wonder why they have printed a suicide hotline number on it?..."""
-}
-
-item_laptop = {
-    "id": "laptop",
-
-    "name": "laptop",
-
-    "description":
-    "It has seen better days. At least it has a WiFi card!"
-}
-
-item_money = {
-    "id": "money",
-
-    "name": "money",
-
-    "description":
-    "This wad of cash is barely enough to pay your tuition fees."
-}
-
-item_biscuits = {
-    "id": "biscuits",
-
-    "name": "a pack of biscuits",
-
-    "description": "A pack of biscuits."
-}
-
-item_pen = {
-    "id": "pen",
-    
-    "name": "a pen",
-
-    "description": "A basic ballpoint pen."
-}
-
-item_handbook = {
-    "id": "handbook",
-    
-    "name": "a student handbook",
-
-    "description": "This student handbook explains everything. Seriously."
-}

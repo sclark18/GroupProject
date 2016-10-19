@@ -24,7 +24,7 @@ def list_of_items(items):
     # returns a string representation of a list of items
     listofitems = []
     for i in items:
-    	listofitems.append(i["name"])
+        listofitems.append(i.get_full_name())
 
     str1 = ", ".join(listofitems)
     return str1 + "."
@@ -37,6 +37,7 @@ def print_room_items(room):
     if var != ".":
         print("There is "+var+" here.")
         print()
+
 
 
 
@@ -118,22 +119,22 @@ def execute_go(direction):
 
 
 
-def execute_take(item_id):
+def execute_take(item_pre, item_name):
     # takes an item from the current room
     for item in current_room["items"]:
-        if item["id"]==item_id:
+        if item.name.lower()==item_pre + " " + item_name:
             inventory.append(item)
             current_room["items"].remove(item)
             return
     print("you cannot take that")
-    
+      
 
 
 
-def execute_drop(item_id):
+def execute_drop(item_pre, item_name):
     # drops an item from inventory
     for item in inventory:
-        if item["id"]==item_id:
+        if item.name.lower() == item_pre + " " + item_name:
             inventory.remove(item)
             current_room["items"].append(item)
             return
@@ -176,13 +177,13 @@ def execute_command(command):
             print("Go where?")
 
     elif command[0] == "take":
-        if len(command) > 1:
+        if len(command) > 2:
             execute_take(command[1])
         else:
             print("Take what?")
 
     elif command[0] == "drop":
-        if len(command) > 1:
+        if len(command) > 2:
             execute_drop(command[1])
         else:
             print("Drop what?")
@@ -227,7 +228,7 @@ def main():
     resone = int(h) * 3600 + int(m) * 60 + int(s)
     # initializes timer
     disp = 1 #comparizon
-    timecheck = 10 # SETTING THE TIME(in seconds)
+    timecheck = 300 # SETTING THE TIME(in seconds)
     while player["alive"] == True:
         while disp > 0 :
             # game loop
