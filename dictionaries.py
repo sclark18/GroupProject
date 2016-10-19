@@ -71,14 +71,16 @@ weapons = {
 			"Crossbow": weapons_crossbow,
 			"Pistol": weapons_pistol,
 			"Battle Axe": weapons_battleaxe,
-			"Meat Cleaver": weapons_meatcleaver,
-			"Bow and Arrow": weapons_bowandarrow,
-			"War Hammer": weapons_warhammer,
-			"Poison Darts": weapons_poisondarts,
+			"Cleaver": weapons_meatcleaver,
+			"Arrow": weapons_bowandarrow,
+			"Hammer": weapons_warhammer,
+			"Darts": weapons_poisondarts,
 			"Flamethrower": weapons_flamethrower,
 			"Claws": weapons_claws,
 			"Grenade": weapons_grenade
 }
+
+weapon_names = list(weapons.keys())
 
 
 
@@ -151,36 +153,36 @@ robots = {
 
 #Recongnisable adjectives
 
-adjectives = [advanced, ancient, atomic, awesome, best, big, biological, bladed, dangerous, deadly, destructive, 
-			effective, efficient, excellent, good, great, handy, heavy, handcrafted, huge, invincible, large, laser, 
-			lethal, light, portable, loaded, magical, massive, military, modern,  new, old, ordinary, potent, powerful, 
-			primitive, sacred, sharp, single, small, special, splendid, standard, strong, superior, traditional, ultimate, 
-			unique, wooden, imperial, supreme, allmighty, legendary]
+adjectives = ["advanced", "ancient", "atomic", "awesome", "best", "big", "biological", "bladed", "dangerous", "deadly", "destructive", 
+			"effective", "efficient", "excellent", "good", "great", "handy", "heavy", "handcrafted", "huge", "invincible", "large", "laser", 
+			"lethal", "light", "portable", "loaded", "magical", "massive", "military", "modern",  "new", "old", "ordinary", "potent", "powerful", 
+			"primitive", "sacred", "sharp", "single", "small", "special", "splendid", "standard", "strong", "superior", "traditional", "ultimate", 
+			"unique", "wooden", "imperial", "supreme", "allmighty", "legendary"]
 
 
 
 #Potions for the game
 
 potions_healthboost = {
-	"name": "Health Boost"
+	"name": "Health Boost",
 	"description": "Increases your health and you will definitely need that later on!"
 
 }
 
 potions_steroids = {
-	"name": "Steroids"
+	"name": "Steroids",
 	"description": "Makes you stronger, bigger and cooler."
 
 }
 
 potions_superhealthboost = {
-	"name": "Super Health Boost"
+	"name": "Super Health Boost",
 	"description": "Restores your health completely!!"
 
 }
 
 potions_magicmushrooms = {
-	"name": "Magic Mushrooms"
+	"name": "Magic Mushrooms",
 	"description": "???"
 
 }
@@ -197,53 +199,37 @@ potions = {
 #Equipment for the player
 
 equipment_platearmour = {
-	"name": "Plate Armour"
+	"name": "Plate Armour",
 	"description": "Provides almost perfect protection, yet it's very heavy and uncomfortable."
 
 }
 
 equipment_chainmail = {
-	"name": "Chainmail Armour"
+	"name": "Chainmail Armour",
 	"description": "Perfection against all! However, there is limited mobility."
 	
 }
 
 equipment_mankini = {
-	"name": "Mankini"
+	"name": "Mankini",
 	"description": "You would be crazy not to want it. Brilliant comfort and protection against monsters"
 	
 }
 
 equipment_magicalrobe = {
-	"name": "Magical Robe"
+	"name": "Magical Robe",
 	"description": "Provides bursts of invisibility so you can evade attacks, to take less damage."
 	
 }
 
 equipment = {
-	"Plate Armour": equipment_platearmour,
-	"Chainmail Armour": equipment_chainmail,
+	"Armour": equipment_platearmour,
+	"Chainmail": equipment_chainmail,
 	"Mankini": equipment_mankini,
-	"Magical Robe": equipment_magicalrobe
+	"Cloak": equipment_magicalrobe
 }
 
-
-#Room options for the floors
-
-room_ = {
-	"name":
-
-}
-
-room_ = {
-	"name":
-
-}
-
-room_ = {
-	"name":
-
-}
+armour = list(equipment.keys())
 
 
 

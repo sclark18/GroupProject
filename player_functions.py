@@ -13,9 +13,9 @@ player = {
 "level" : 1, 
 "Attack Points" : 0, 
 "Defense Points" : 0,
-"Inventory":[Equipment(1,2,["Sword"],["Basic"],"ATT"),Potion(1,"Health")], 
-"Weapon" : None, 
-"Armour" : None
+"Inventory":1, 
+"Weapon" : Equipment(1,["Sword"],["Basic"],"ATT"), 
+"Armour" : Equipment(1,["Shirt"],["White"],"DEF")
 }
 # Values for the player, should be self explanatory.
 # When displaying the amount of EXP to the next level to the player, it should be player["EXP to next level"] - player["EXP"]
@@ -84,16 +84,18 @@ def equip_weapon(item):
 	if player["Weapon"] == None:
 		player["Weapon"] = item
 	else:
-		player["Inventory"].append(player["Weapon"])
+		a = player["Weapon"]
 		player["Weapon"] = item
+		return a
 
 
 def equip_armour(item):
 	if player["Armour"] == None:
 		player["Armour"] = item
 	else:
-		player["Inventory"].append(player["Armour"])
+		a = player["Armour"]
 		player["Armour"] = item
+		return a
 	
 # These functions should edit the player's equipped set and change their stats accordingly
 # These functions are also untested

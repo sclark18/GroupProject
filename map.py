@@ -1,4 +1,6 @@
 import random
+from dictionaries import *
+from items import *
 names = ['Big_room',"Small_room","Not_a_room","Nice_room","Better_room","Room_of_rooms","The_room","Final_room","Tahano_room",]
 
 # A list of the 9 rooms on a floor. Each room has a name, description (maybe), exits (adjacent rooms), a boolean determining whether there are stairs,
@@ -147,11 +149,20 @@ rooms = [
 ]
 # list of all rooms on a floor
 
-def generate_floor():
+def generate_floor(floor_number):
     # randomly generates a floor of 9 (3x3) rooms
     for r in rooms:
         r["up"] = False
         r["items"] = []
+        x = random.randrange(0,30)
+        if x <2:
+            r["items"].append(Potion())
+        elif x < 3:
+            val = random.randrange(floor_number ,floor_number+5)
+            r["items"].append(Equipment(val, weapon_names,adjectives,"ATT"))
+        elif x < 4:
+            val = random.randrange(floor_number ,floor_number+5)
+            r["items"].append(Equipment(val, armour,adjectives,"DEF"))
     for r in rooms:
         i = random.randrange(0,len(names))
         r["name"] = names[i]
@@ -166,7 +177,7 @@ def print_map(current_room, name):
     uses the first letter of the user's name as an icon 
     """
     output = ""
-    print("┌─────┬─────┬─────┐")
+    print("\033[1;37;40m"+"┌─────┬─────┬─────┐")
     for i in range(0,3):
         a = [" "]*4
         b = [" "]*4
@@ -176,7 +187,7 @@ def print_map(current_room, name):
             if current_room == rooms[(i*3) + index]:
                 s[0] = name[0].upper()
             if rooms[(i*3) + index]["up"]:
-                s[1] = "▓"
+                s[1] = "\033[1;32;40m"+ "▓" + "\033[1;37;40m"
             if rooms[(i*3) + index]["monster"] != None:
                 s[2] = "!"
             if rooms[(i*3) + index]["items"] != []:
@@ -186,7 +197,7 @@ def print_map(current_room, name):
         if i != 2:
             print("├─────┼─────┼─────┤")
         else:
-            print("└─────┴─────┴─────┘")
+            print("└─────┴─────┴─────┘" + "\033[1;37;40m")
 
-generate_floor()
+generate_floor(1)
 

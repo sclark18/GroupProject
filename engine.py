@@ -35,26 +35,32 @@ def print_room_items(room):
     # prints the items within the room
     var = list_of_items(room["items"])
     if var != ".":
-        print("There is "+var+" here.")
-        print()
-
-
-
-
+        print("Items in this room: ")
+        print("\033[1;34;40m" + var + "\033[1;37;40m")
 
 
 def print_inventory_items(items):
     # prints the items in the player's inventory
-    print("You have" , list_of_items(inventory) +".") #passed
+    print_equipment()
+    print("Potions: " + str(player["Inventory"]))
     print()
 
+def print_equipment():
+    output = "You are equipped with: \n"
+    if player["Weapon"] != None:
+        output += ("a " + player["Weapon"].get_full_name() + "\n")
+    if player["Armour"] != None:
+        output += ("a " + player["Armour"].get_full_name())
+    print(output)
 
+def print_stats():
+    pass
 
 
 def print_room(room):
     # prints the current room's name and description, along with a map showing the room's location and other information
     print()
-    print(room["name"])
+    print(room["name"].upper())
     print_map(room,player["name"])
     print(room["description"])
     print()
@@ -81,22 +87,11 @@ def print_exit(direction, leads_to):
 def print_menu(exits, room_items, inv_items):
     #prints the game menu
     global current_room
-    print("You can:")
-    for direction in exits:
-        print_exit(direction, exit_leads_to(exits, direction)["name"])
-
-    for i in room_items:
-    	print("TAKE " + (i["id"]).upper() +" to take a "+(i["name"])+".")
-
-    for i in inv_items:
-        print("DROP " + (i["id"]).upper() +" to drop your "+(i["name"])+".")
 
     if current_room["up"] == True:
-        print("NEXT FLOOR to go to the next floor.")
+        print("\033[1;32;40m" + "NEXT FLOOR to go to the next floor." + "\033[1;37;40m")
 
-    print("Write TIME to check how much time you have left.")
-
-    print("What do you want to do?")
+    print("What next?")
 
 
 
@@ -117,20 +112,6 @@ def execute_go(direction):
         print("You cannot go that way...")
 
 
-
-
-def execute_take(item_pre, item_name):
-    # takes an item from the current room
-    for item in current_room["items"]:
-        if item.name.lower()==item_pre + " " + item_name:
-            inventory.append(item)
-            current_room["items"].remove(item)
-            return
-    print("you cannot take that")
-      
-
-
-
 def execute_drop(item_pre, item_name):
     # drops an item from inventory
     for item in inventory:
@@ -139,6 +120,26 @@ def execute_drop(item_pre, item_name):
             current_room["items"].append(item)
             return
     print("you cannot drop that")
+
+def execute_take(item_pre, item_name):
+    # equips an item
+    for item in current_room["items"]:
+        if item.__class__ == Potion:
+            player["Inventory"] += 1
+            current_room["items"].remove(item)
+        elif item.name.lower()==item_pre + " " + item_name:
+            if item.__class__ == Equipment:
+                if item.type == "ATT":
+                    x = equip_weapon(item)
+                    if x != None:
+                        current_room["items"].append(x)
+                else:
+                    x = equip_armour(item)
+                    if x != None:
+                        current_room["items"].append(x)
+                current_room["items"].remove(item)
+            return
+    print("you cannot equip that")
  
 def execute_kill(mob):
     # kills a monster
@@ -152,12 +153,12 @@ def execute_nextfloor():
     floornumber = floornumber + 1
     player["EXP"] = player["EXP"] + floornumber
 
-
+    print("\033[1;32;40m")
     print("------------------------------------------------------------------------------")
-    print("           You have sucesfully entered to the floor number",floornumber,"!")
+    print("           You have sucesfully entered floor ",floornumber,"!")
     print("------------------------------------------------------------------------------")
-
-    generate_floor()
+    print("\033[1;37;40m")
+    generate_floor(floornumber)
 
 
 
@@ -178,13 +179,13 @@ def execute_command(command):
 
     elif command[0] == "take":
         if len(command) > 2:
-            execute_take(command[1])
+            execute_take(command[1], command[2])
         else:
             print("Take what?")
 
     elif command[0] == "drop":
         if len(command) > 2:
-            execute_drop(command[1])
+            execute_drop(command[1], command[2])
         else:
             print("Drop what?")
 
@@ -205,6 +206,12 @@ def execute_command(command):
         global timeshow
         timeshow = 1
 
+    elif command[0] == "equip":
+        if len(command) > 2:
+            execute_equip(command[1],command[2])
+        else:
+            print("Equip What?")
+
 
 def menu(exits, room_items, inv_items):
     # displays the game menu and returns the user's (normalised) input
@@ -217,6 +224,7 @@ def menu(exits, room_items, inv_items):
 
 def main():
     cls()
+    print("\033[1;37;40m")
     player_gen(input("What is your name explorer? "))
     print("Welcome to the game, ",player["name"],".")
     print("Let the game begin. You are in the :")
@@ -243,7 +251,7 @@ def main():
 
 
             # if we want the last command to be accepted delete break and write sg else instead
-            # Display game status (room description, inventory etc.)    
+            # Display game status (room description, inventory etc.) 
             print_room(current_room)
             if timeshow == 1:
                  if disp > 0:
@@ -264,6 +272,8 @@ def main():
         print("Your score is saved!")
         print("Press a key to exit.")
         input()
+        cls()
+        print("\033[1;37;40m")
         break
         
     
