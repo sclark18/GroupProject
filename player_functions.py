@@ -3,7 +3,20 @@ import random
 from items import *
 # Work in Progress!
 
-player = { "name" : "", "Hit Points" : 0, "Max Hit Points" : 0, "alive" : True, "EXP" : 0, "EXP to next level" : 0, "level" : 1, "Attack Points" : 0, "Defense Points" : 0, "Equipped" : {"Weapon" : [], "Equipment" : [] } }
+player = { 
+"name" : "", 
+"Hit Points" : 0, 
+"Max Hit Points" : 0, 
+"alive" : True, 
+"EXP" : 0, 
+"EXP to next level" : 0, 
+"level" : 1, 
+"Attack Points" : 0, 
+"Defense Points" : 0,
+"Inventory":[Equipment(1,2,["Sword"],["Basic"],"ATT"),Potion(1,"Health")], 
+"Weapon" : None, 
+"Armour" : None
+}
 # Values for the player, should be self explanatory.
 # When displaying the amount of EXP to the next level to the player, it should be player["EXP to next level"] - player["EXP"]
 
@@ -48,11 +61,10 @@ def level_up():
 # The stat upgrades are all prospective and fairly arbitrary and you should all feel free to change them for better game balance when we get there
 
 def equipment_update(item):
-	try:
-	    player["Attack Points"] += item["Attack Points"]
-	except ValueError:
-	    player["Defense Points"] += item["Defense Points"]
-    return
+    if item.type == "ATT":
+        player["Attack Points"] += item.val
+    elif item.type == "DEF":
+        player["Defense Points"] += item.val
 #this function edits the players stats according to the items that are currently equipped
 
 def equipment_gen(item):
@@ -69,26 +81,20 @@ def weapon_gen(item):
 # Same as equipment_gen() but for weapons
 
 def equip_weapon(item):
-	try:
-		player["Equipped"["Weapon"["Attack Points"]]] = 0 - player["Equipped"["Weapon"["Attack Points"]]]
-		equipment_update(player["Equipped"["Weapon"["Attack Points"]]])
-	except ValueError:
-		pass
-	weapon_gen(item)
-	equipment_update(item)
-	player["Equipped"["Weapon"]].update(item)
-    return
+	if player["Weapon"] == None:
+		player["Weapon"] = item
+	else:
+		player["Inventory"].append(player["Weapon"])
+		player["Weapon"] = item
 
-def equip_equipment(item):
-	try:
-		player["Equipped"["Equipment"["Defense Points"]]] = 0 - player["Equipped"["Equipment"["Defense Points"]]]
-		equipment_update(player["Equipped"["Equipment"["Defense Points"]]])
-	except ValueError:
-		pass
-	equipment_gen(item)
-	equipment_update(item)
-	player["Equipped"["Equipment"]].update(item)
-    return
+
+def equip_armour(item):
+	if player["Armour"] == None:
+		player["Armour"] = item
+	else:
+		player["Inventory"].append(player["Armour"])
+		player["Armour"] = item
+	
 # These functions should edit the player's equipped set and change their stats accordingly
 # These functions are also untested
         
