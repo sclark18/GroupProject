@@ -8,6 +8,7 @@ import random
 import time
 from player_functions import *
 from fightingengine import *
+from scoreboard import *
 import os
 
 
@@ -115,12 +116,14 @@ def execute_go(direction):
 
 def execute_drop(item_pre, item_name):
     # drops an item from inventory
-    for item in inventory:
-        if item.name.lower() == item_pre + " " + item_name:
-            inventory.remove(item)
-            current_room["items"].append(item)
-            return
-    print("you cannot drop that")
+    if player["Weapon"].name.lower() == item_pre + " " + item_name:
+        current_room["items"].append(player["Weapon"])
+        player["Weapon"] = None
+    elif player["Armour"].name.lower() == item_pre + " " + item_name:
+        current_room["items"].append(player["Armour"])
+        player["Armour"] = None
+    else:
+        print("You cannot drop that...")
 
 def execute_take(item_pre, item_name):
     # equips an item
@@ -237,7 +240,7 @@ def main():
     resone = int(h) * 3600 + int(m) * 60 + int(s)
     # initializes timer
     disp = 1 #comparizon
-    timecheck = 300 # SETTING THE TIME(in seconds)
+    timecheck = 10 # SETTING THE TIME(in seconds)
     while player["alive"] == True:
         while disp > 0 :
             # game loop
@@ -276,7 +279,11 @@ def main():
             execute_command(command)
         print("Your time is over")
         print("Saveing your score...")
-        #saveing the score command
+        address = "scores"
+        data = process_file(address)
+        save_data(address,data,floornumber,player["name"])
+        data = process_file(address)
+        print_scoreboard(data)
         print("Your score is saved!")
         print("Press a key to exit.")
         input()

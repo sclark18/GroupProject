@@ -53,7 +53,7 @@ def level_up():
 	player["Attack Points"] += player["level"] + random.randint(0, (math.floor(player["level"]/2)))
 	player["Defense Points"] += player["level"] + random.randint(0, (math.floor(player["level"]/4)))
 	player["level"] = player["level"] + 1
-	player["EXP"] = player["EXP to next level"] - player["EXP"]
+	player["EXP"] = player["EXP"] = round(player["EXP to next level"] - (player["EXP"]*random.uniform(0.1,1)),0)
 	player["EXP to next level"] = player["level"] + player["EXP to next level"] + 12
 	return
 # This function is called by player_update when the player is due to level up

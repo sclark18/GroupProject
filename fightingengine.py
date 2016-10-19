@@ -1,93 +1,60 @@
 import math
 import random
 import collections
+from engine import cls
+from player_functions import *
+from dictionaries import *
+red = "\033[1;31;40m"
+blue = "\033[1;34;40m"
+green = "\033[1;32;40m"
+yellow = "\033[1;33;40m"
+default = "\033[1;37;40m"
 
-unsortedplayer = (("Name", ""),
-          ("Health", 100),
-          ("Alive" , True),
-          ("XP", 0),
-          ("XP to Level Up", 30),
-          ("Level", 1),
-          ("Attack Points", 5 + random.randint(1,10)))
-
-player = collections.OrderedDict(unsortedplayer)
-
-#def player_update(playerchoice, enemychoice, xp = 0):
-	#player["Health"] -= playerchoice
-	#player["Health"] += enemychoice
-	#if player["Health"] <= 0:
-		#player["Alive"] = False
-	#if player["XP"] >= player["XP to Level Up"]:
-		#level_up()
-	#return
-# This function should be called when the players temporary stats need to be updated, such as when in combat or using a healing item
-# There should be no change in values when parameters are not entered
-
-def level_up():
-	hp = player["Level"] + random.randint(0, player["Level"])
-	player["Health"] += hp
-	player["Attack Points"] += player["Level"] + random.randint(0, (math.floor(player["Level"]/2)))
-	player["Level"] = player["Level"] + 1
-	player["XP"] = round((player["XP to Level Up"] + player["XP"]*random.uniform(0,1)), 0)
-	player["XP to Level Up"] = player["Level"] + player["XP to Level Up"]*2
-	return
-    
 def print_stats():
-    for key, value in player.items():
-        print(key + ":", value)
-        
-def update_xp(playerchoice):
-    xp = playerchoice * random.randint(0,1)
-    print(xp)
+        print("Name:", player["name"])
+        print("Hit Points:", green + player["Hit Points"] + default)
+        print("EXP:", player["EXP"])
+        print("EXP to next level:", yellow + player["EXP to next level"] + default)
+        print("Current Level:", green + player["level"] + default)
+        print("Attack points:", red + player["Attack Points"] + default)
+        print("Defense points:", blue + player["Defense Points"] + default)
 
-def main():
-    player["Name"] = input("What is your name: ").capitalize()
-    print("Welcome to the game,", player["Name"])
-    print("----------------------------------------------------------------")
-    print("                         HOW TO PLAY")
-    print("----------------------------------------------------------------")
-    print("")
-    print("Fight against the computer in an battle using a range of atacks")
-    print("Different types of attack will do various ammounts of damage")
-    print("You can also choose to skip the attack and heal")
-    print("After each sucessful attack you will gain attack points and EXP")
-    print("These points will help you level up")
-    print("Any move you make can miss, so choose wisely!")
-    print("----------------------------------------------------------------")
-    print("")
-    print_stats()
+def fighting():
+   # player["Name"] = input("What is your name: ").capitalize()
+    cls()
+    # you can get rid of the instructions when adding to main game if you want ^
 
     again = True
 
     # Set up the play again loop
     while again:
+        robotgen = list(robots.keys())
+        
+        robot = random.choice(robotgen).lower()
 
-    
         winner = None
-        player["Health"] = 100
+        player["Hit Points"] = 100
         enemyhealth = 100
+        print("Oh no! A robot", red +(random.choice(robotgen)).upper() + default, "appeared!")
+        print("-----------------------")
 
         # determine whose turn it is
         turn = random.randint(1,2) # heads or tails
         if turn == 1:
             turn_player = True
             turn_enemy = False
-            print("")
-            print("------------------")
             print("You will go first.")
-            print("------------------")
+            print("-----------------------")
         else:
             turn_player = False
             turn_enemy = True
-            print("")
-            print("------------------")
             print("Your enemy will go first.")
-            print("------------------")
-        print("Your health: ", player["Health"])
-        print("Enemy health: ", enemyhealth)
+            print("-----------------------")
+        print("Your health: ", green + str(player["Hit Points"]) + default)
+        print("Enemy health: ", red + str(enemyhealth) + default)
 
         #main game loop
-        while (player["Health"] != 0 or enemyhealth != 0):
+        while (player["Hit Points"] != 0 or enemyhealth != 0):
             heal = False
             miss = False
             moves = {"Punch": random.randint(15,25),
@@ -99,11 +66,12 @@ def main():
                 print("1. Punch (15-25 damage)")
                 print("2. Kick (12-35 damage)")
                 print("3. Karate Chop (10-30)")
-                print("4. Heal (Heal by 20-30")
+                print("4. Heal (Heal by 20-30)")
                 print("5. View stats")
                 print("-----------------------")
                 
                 playerchoice = input("Select a move: ").lower()
+                cls()
                 print("-----------------------")
                 chance_of_miss = random.randint(1,5) # 1 in 5 chance player misses
 
@@ -126,9 +94,14 @@ def main():
                         playerchoice = moves["Karate Chop"]
                         print("You karate chopped your enemy. Ouch! Damage: ", playerchoice)
                     elif playerchoice in ("4", "heal"):
-                        heal = True # heal activated
-                        playerchoice = moves["Heal"]
-                        print("You heal yourself! You've gained", playerchoice, "health")
+                        if player["Inventory"] < 1:
+                            print("You are out of potions!")
+                            print("Your health: ", player["Hit Points"], "Enemy health: ", enemyhealth)
+                            continue
+                        else:
+                            heal = True # heal activated
+                            playerchoice = moves["Heal"]
+                            print("You heal yourself! You've gained", playerchoice, "health")
                     elif playerchoice in ("5", "view stats"):
                         print_stats()
                         print("-----------------------")
@@ -148,18 +121,18 @@ def main():
 
                 if miss:
                     enemychoice = 0 # the computer misses and deals no damage
-                    print("The computer missed!")
+                    print("The robot missed!")
                 else:
                     if enemyhealth > 30:
                         if enemyhealth > 75:
                             enemychoice = moves["Punch"]
                             print("Your enemy punches you straight in the face. Damage:", enemychoice)
-                        elif player["Health"] > 35 and player["Health"] <= 75:
+                        elif player["Hit Points"] > 35 and player["Hit Points"] <= 75:
                             move_choice = ["Punch", "Kick", "Karate Chop"]
                             move_choice = random.choice(move_choice)
                             enemychoice = moves[move_choice]
                             print("Your enemy used", move_choice, "Damage:", enemychoice)
-                        elif player["Health"] <= 35:
+                        elif player["Hit Points"] <= 35:
                             enemychoice = moves["Kick"]
                             print("Your enemy kicks you to the floor! Damage:", enemychoice)                     
                     else: # if the computer has less than 30 health, there is a 50% chance they will heal
@@ -167,26 +140,26 @@ def main():
                         if choice5050 == 1:
                             heal = True
                             enemychoice = moves["Heal"]
-                            print("Your enemy chose to heal. Their health increaed to ", enemychoice)
+                            print("Your enemy chose to heal. Their health increased by ", enemychoice)
                         else:
-                            if player["Health"] > 75:
+                            if player["Hit Points"] > 75:
                                 enemychoice = moves["Punch"]
                                 print("Your enemy lands a hard punch right on your nose! Damage:", enemychoice)
-                            elif player["Health"] > 35 and player["Health"] <= 75:
+                            elif player["Hit Points"] > 35 and player["Hit Points"] <= 75:
                                 move_choice = ["Punch", "Kick", "Karate Chop"]
                                 move_choice = random.choice(move_choice)
                                 enemychoice = moves[move_choice]
                                 print("Your enemy used ", move_choice, ". Damage:", enemychoice)
-                            elif player["Health"] <= 35:
+                            elif player["Hit Points"] <= 35:
                                 enemychoice = moves["Kick"] 
                                 print("Your enemy kicked you. Ouch! Damage:", enemychoice)
 
             if heal:
                 if turn_player:
-                    player["Health"] += playerchoice
-                    
-                    if player["Health"] > 100:
-                        player["Health"] = 100 # cap max health at 100. No over healing!
+                    player["Hit Points"] += playerchoice
+                    player["Inventory"] -=1
+                    if player["Hit Points"] > 100:
+                        player["Hit Points"] = 100 # cap max health at 100. No over healing!
                         
                 else:
                     enemyhealth += enemychoice
@@ -195,43 +168,52 @@ def main():
             else:
                 if turn_player:
                     enemyhealth -= playerchoice
-                    xp = (playerchoice*random.uniform(0,1))
+                    xp = (playerchoice*random.uniform(0.1,1))
                     xp = round(xp, 0)
-                    player["XP"] = round(player["XP"] + xp, 0)
+                    player["EXP"] = round(player["EXP"] + xp, 0)
                     if enemyhealth < 0:
                         enemyhealth = 0 # cap minimum health at 0
                         winner = "Player"
                         break
                 else:
-                    player["Health"] -= enemychoice
-                    if player["Health"] < 0:
-                        player["Health"] = 0
+                    player["Hit Points"] -= enemychoice
+                    if player["Hit Points"] < 0:
+                        player["Hit Points"] = 0
                         winner = "Enemy"
                         break
-            if player["XP"] >= player["XP to Level Up"]:
+            if player["EXP"] >= player["EXP to next level"]:
                 print("Level Up!!")
                 level_up()
-                if player["Health"] > 100:
-                    player["Health"] = 100
-                print("-----------------------")   
-                print_stats()
-                print("-----------------------")
-            print("Your health: ", player["Health"], "Enemy health: ", enemyhealth)
+                if player["Hit Points"] > 100:
+                    player["Hit Points"] = 100
+                #print("-----------------------")   
+                #print_stats()
+                #print("-----------------------")
+            
 
 
             # switch turns
             turn_player = not turn_player
             turn_enemy = not turn_enemy
+            if not turn_enemy:
+                print("Your health: ", green + str(player["Hit Points"]) + default, "Enemy health: ",red + str(enemyhealth)+ default) 
 
         # once main game while loop breaks, determine winner and congratulate
 
         if winner == "Player":
-            print("Player health: ", player["Health"], "Enemy health: ", enemyhealth)
-            print("Congratulations,", player["Name"] +"! You won!!")
+            print("Player health: ", player["Hit Points"], "Enemy health: ", enemyhealth)
+            print("Congratulations,", player["name"] +"! You destroyed the robot", robot.upper())
+            print("You are the winner! Enter any key to continue!")
+            input()
+            cls()
+            return True
         else:
             player["Alive"] = False
-            print("Player health: ", player["Health"], "Enemy health: ", enemyhealth)
-            print("Sorry, but you lost. Better luck next time.")
+            print("Player health: ", player["Hit Points"], "Enemy health: ", enemyhealth)
+            print("Oh no the robot", robot.upper(), "destroyed you! Better luck next time. Press any key to continue.")
+            input()
+            cls()
+            return False
 
         print("\nWould you like to play again?")
 
@@ -239,4 +221,4 @@ def main():
         if answer not in ("yes", "y"):
             again = False
 
-main()
+#fighting()
